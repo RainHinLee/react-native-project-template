@@ -1,0 +1,10 @@
+rootProject.name = 'reactapp'
+
+include ':app'
+include ':react-native-fs'
+include ':react-native-video'
+include ':react-native-spinkit'
+
+project(':react-native-spinkit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-spinkit/android')
+project(':react-native-fs').projectDir = new File(settingsDir, '../node_modules/react-native-fs/android')
+project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android')

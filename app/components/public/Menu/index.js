@@ -36,6 +36,10 @@ class Menu extends Component{
 		})
 	}
 	
+	goDetail(slug){
+		this.props.navigation.navigate('Detail',{slug})
+	}
+	
 	shouldComponentUpdate(nextProps,nextState){
 		var isok = nextState.cates != this.state.cates;
 		
@@ -74,14 +78,16 @@ class Menu extends Component{
 				this.keys.push(refKey);
 				return <Animatable.View key={index} ref={refKey} style={styles.itemBox}>
 							<Grid>
-								<Row>
-									<Col size={7} style={styles.textBox}>
-										<Icon name='square' size={10} color="#ccc"/>
-									</Col>
-									<Col size={93} style={styles.textBox}>
-										<Text style={styles.text}>{item.name}</Text>
-									</Col>
-								</Row>
+								<TouchableNativeFeedback onPress={() =>{this.goDetail(item.slug)}}>
+									<Row>
+										<Col size={7} style={styles.textBox}>
+											<Icon name='square' size={10} color="#ccc"/>
+										</Col>
+										<Col size={93} style={styles.textBox}>
+											<Text style={styles.text}>{item.name}</Text>
+										</Col>
+									</Row>
+								</TouchableNativeFeedback>
 							</Grid>
 						</Animatable.View>
 		})

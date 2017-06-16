@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import Home from './screen/Home/index.js';
+import Detail from './screen/Detail/index.js';
 import TopBar from './public/TopBar/index.js';
 
 //---包装screen组件
@@ -19,7 +20,6 @@ function wrapScreen(Screen){
 						<StatusBar backgroundColor='#FE4A4B' barStyle='light-content' animated={true}/>
 						<TopBar navigation={this.props.navigation} {...Screen.routerOptions}/>
 						{this.renderChildren()}
-						
 						<View style={global.styles.body}>
 							<Screen navigation={this.props.navigation}/>
 						</View>
@@ -40,8 +40,8 @@ function wrapScreen(Screen){
 	}
 }
 
-
 export default {
 	Home: wrapScreen(Home),
+	Detail:wrapScreen(Detail)
 }
 

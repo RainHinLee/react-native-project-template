@@ -34,7 +34,7 @@ class TopBar extends Component {
 			return  null				
 		}
 		
-		return <TouchableNativeFeedback onPress={this.props.naviagtion.goBack}>
+		return <TouchableNativeFeedback onPress={()=>{this.props.navigation.goBack()}}>
 					<View style={[global.styles.center,styles.iconBox]}>
 						<Icon name='chevron-left' {...icons}/>
 					</View>

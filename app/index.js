@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import {StackNavigator} from 'react-navigation';
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator'; //---切换效果
 
 //---引入各组件
 import reducers from './reducers/index.js';
@@ -20,7 +21,18 @@ global.storage = storage
 const reduxStore = createStore(reducers);
 
 //--连接react-navigation
-const NavApp = StackNavigator(screens);
+const NavApp = StackNavigator(screens,{
+	transitionConfig(()=>{
+		return{
+			screenInterpolator:CardStackStyleInterpolator.forHorizontal,
+		}
+	}),
+	
+	onTransitionStart(){
+		
+	}
+	
+});
 
 //--输出根组件
 export default class App extends Component{

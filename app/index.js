@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import {StackNavigator} from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator'; //---切换效果
-
+import {connect} from 'react-redux';
 //---引入各组件
 import reducers from './reducers/index.js';
 import styles from './styles/index.js';
@@ -20,16 +20,20 @@ global.storage = storage
 //--连接redux
 const reduxStore = createStore(reducers);
 
-//--连接react-navigation
+//--连接react-navigation,
 const NavApp = StackNavigator(screens,{
-	transitionConfig(()=>{
+	transitionConfig:()=>{
 		return{
 			screenInterpolator:CardStackStyleInterpolator.forHorizontal,
 		}
-	}),
+	},
 	
-	onTransitionStart(){
-		
+	onTransitionStart(){ //--防止多次点击同一个navigation元素；
+		reduxStore.dispatch({type:'navigatorYes'}) 
+	},
+	
+	onTransitionEnd(){
+		reduxStore.dispatch({type:'navigatorNo'})
 	}
 	
 });

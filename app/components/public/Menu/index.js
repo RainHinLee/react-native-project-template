@@ -5,7 +5,8 @@ import {
 	StyleSheet,
 	TouchableNativeFeedback,
 	Dimensions,
-	Alert
+	Alert,
+	BackHandler,
 } from 'react-native';
 import {connect} from 'react-redux';
 import * as Animatable from 'react-native-animatable';
@@ -13,6 +14,8 @@ import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Loading from '../Loading/index.js';
+
+let CURRENT = '';
 
 class Menu extends Component{
 	constructor(props){
@@ -26,7 +29,7 @@ class Menu extends Component{
 		this.props.dispatch({type:'menuHide'});
 	}
 	
-	fetchCates(){
+	fetchCates(){ //--获取分类列表
 		global.storage.load({
 			key:'cates',
 		}).then(results=>{
@@ -37,7 +40,10 @@ class Menu extends Component{
 	}
 	
 	goDetail(slug){
-		this.props.navigation.navigate('Detail',{slug})
+		if(this.props.navigator.isGoing){
+			return false
+		}
+		this.props.navigation.navigate('Detail',{slug});
 	}
 	
 	shouldComponentUpdate(nextProps,nextState){
@@ -66,6 +72,17 @@ class Menu extends Component{
 	
 	componentDidMount(){
 		this.fetchCates();
+		this.addBackHanlder() //--注册back事件
+	}
+	
+	addBackHanlder(){
+		BackHandler.addEventListener('hardwareBackPress',()=>{
+			if(this.props.menu.isOpend){
+				this.hideMenu();
+				return true;
+			};
+			return false
+		})
 	}
 	
 	renderList(){
@@ -105,7 +122,10 @@ class Menu extends Component{
 }
 
 export default connect((state)=>{
-	return {menu:state.menu}
+	return {
+		menu:state.menu,
+		navigator:state.navigator
+	}
 })(Menu);
 
 const {width,height} = Dimensions.get('window');

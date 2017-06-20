@@ -2,17 +2,18 @@
 import React,{Component} from 'react';
 import {
 	View,
-	Text
+	Text,
+	StyleSheet
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import config from './config.js';
-
+import config from '../config.js';
 
 export default class Home extends Component{
  	static navigationOptions = config['Home'];
 	
 	render(){
-		return <Text>Home</Text>
+		return  <View ><Text>Home</Text></View>
 	}
 }
+

@@ -3,7 +3,8 @@
 import React,{Component} from 'react';
 import {
 	View,
-	StatusBar
+	StatusBar,
+	BackHandler,
 } from 'react-native';
 
 import Home from './screen/Home/index.js';
@@ -14,8 +15,7 @@ import TopBar from './public/TopBar/index.js';
 function wrapScreen(Screen){
 	
 	class App extends Component {
-		render(){
-					
+		render(){		
 			return <View style={global.styles.container}>
 						<StatusBar backgroundColor='#FE4A4B' barStyle='light-content' animated={true}/>
 						<TopBar navigation={this.props.navigation} {...Screen.routerOptions}/>

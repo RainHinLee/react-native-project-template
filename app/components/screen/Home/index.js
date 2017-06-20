@@ -5,10 +5,11 @@ import {TabNavigator} from 'react-navigation';
 import {
 	View,
 	Text,
+	BackHandler,
 } from 'react-native';
 
-import HomeScreen from './HomeScreen.js';
-import UserScreen from './UserScreen.js';
+import HomeScreen from './HomeScreen/index.js';
+import UserScreen from './UserScreen/index.js';
 import Menu from '../../public/Menu/index.js';
 
 const screens = {

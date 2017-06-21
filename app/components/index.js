@@ -28,8 +28,10 @@ function wrapScreen(Screen){
 		
 		renderChildren(){  //--渲染子视图
 			var childrens = Screen.components||[];
-			return childrens.map((Item,key)=>{
-				return <Item key={key} navigation={this.props.navigation}/>
+			return childrens.map((item,key)=>{
+				let Component= item.Component;
+				let props = item.props || {}
+				return <Component key={key} navigation={this.props.navigation} {...props}/>
 			})
 		}
 	}

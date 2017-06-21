@@ -11,6 +11,7 @@ import {
 import HomeScreen from './HomeScreen/index.js';
 import UserScreen from './UserScreen/index.js';
 import Menu from '../../public/Menu/index.js';
+import Player from '../../public/Player/index.js'
 
 const screens = {
 	Home: {
@@ -22,7 +23,8 @@ const screens = {
 	} 	
 }
 
-const options = {  
+const options = { 
+	swipeEnabled:false,
 	tabBarPosition:'bottom',
 	tabBarOptions:{
 		activeTintColor:'#FE4A4B',  //--激活是文本颜色
@@ -58,10 +60,27 @@ export default class Home extends Component{
 		title:'HanbridgeMandarin',
 	}
 	
-	static components=[Menu];  //---子组件
+	static components=[
+		{
+			Component:Menu,
+			props:{},
+		},
+		
+		{
+			Component:Player,
+			props:{
+				poster:require('../../../assets/images/lilian.jpg'),
+				src:require('../../../assets/media/Jeff.mp4'),
+				fullscreen:true,
+				autoplay:true,
+			}
+		}
+
+	
+	];  //---子组件
 
 	render(){
-		return <App/>
+		return <App screenProps={{stackNavigation:this.props.navigation}}/>
 	}
 }
 

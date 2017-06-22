@@ -72,7 +72,7 @@ export default class Home extends Component{
 				poster:require('../../../assets/images/lilian.jpg'),
 				src:require('../../../assets/media/Jeff.mp4'),
 				fullscreen:true,
-				autoplay:true,
+				autoplay:false,
 			}
 		}
 

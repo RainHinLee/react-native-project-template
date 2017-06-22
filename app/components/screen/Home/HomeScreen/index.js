@@ -22,11 +22,10 @@ export default class Home extends Component{
  	}
  	
 	render(){
-
 		return  <Player 
 					src={require('../../../../assets/media/Jeff.mp4')} 
 					poster={require('../../../../assets/images/lilian.jpg')}
-					autoplay={false}
+					autoplay={true}
 				/>
 	}
 }

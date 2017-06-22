@@ -7,5 +7,5 @@ export default function (state={isOpend:false},action){
 			return Object.assign({},state.menu,{isOpend:false});
 	}
 	
-	return {isOpend:false};
+	return Object.assign({},state)
 }

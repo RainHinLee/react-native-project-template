@@ -10,6 +10,6 @@ export default function(state={},action){
 			return {isGoing:false}
 	}
 	
-	return {isGoing:false}
+	return Object.assign({},state)
 	
 }

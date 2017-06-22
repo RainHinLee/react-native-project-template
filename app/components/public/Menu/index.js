@@ -23,6 +23,8 @@ class Menu extends Component{
 		this.state={
 			cates:[],
 		}
+		
+		this.onBackHandler = this.backHandler.bind(this)
 	}
 	
 	hideMenu(){  //--隐藏
@@ -47,42 +49,38 @@ class Menu extends Component{
 	}
 	
 	shouldComponentUpdate(nextProps,nextState){
-		var isok = nextState.cates != this.state.cates;
-		
-		if(isok){
+
+		if(nextState.cates != this.state.cates){
 			return true
 		}
 		
 		if(this.props.menu.isOpend != nextProps.menu.isOpend){
-			let values = {
-					left: nextProps.menu.isOpend ? 0 : -1*width
-			}
-			this.refs.box.transitionTo(values,100,'linear');
 			
-			if(nextProps.menu.isOpend){
+			if(nextProps.menu.isOpend){  //---展开
+				this.refs.box.transitionTo({left:0},100,'linear');
 				this.keys.length && this.keys.forEach((item,index)=>{
 					let time = 200+index*50
 					this.refs[item].transition({left:-300},{left:0},time,'ease-in-out')
 				})
-			}
+				BackHandler.addEventListener('hardwareBackPress',this.onBackHandler);
+			}else{ //---收起
+				this.refs.box.transitionTo({left:-1*width},100,'linear');	
+			};
 		}
-		
 		return false;
 	}
 	
 	componentDidMount(){
 		this.fetchCates();
-		this.addBackHanlder() //--注册back事件
 	}
 	
-	addBackHanlder(){
-		BackHandler.addEventListener('hardwareBackPress',()=>{
-			if(this.props.menu.isOpend){
-				this.hideMenu();
-				return true;
-			};
-			return false
-		})
+	backHandler(){
+		if(this.props.menu.isOpend){
+			this.hideMenu();
+			BackHandler.removeEventListener('hardwareBackPress',this.onBackHandler)			
+			return true;
+		};
+		return false
 	}
 	
 	renderList(){

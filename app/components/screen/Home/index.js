@@ -11,7 +11,12 @@ import {
 import HomeScreen from './HomeScreen/index.js';
 import UserScreen from './UserScreen/index.js';
 import Menu from '../../public/Menu/index.js';
-import Player from '../../public/Player/index.js'
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+
+import {NativePlayer,H5Player} from '../../public/Player/index.js';
+
+const src = resolveAssetSource(require('../../../assets/media/Jeff.mp4')).uri;
+const poster = resolveAssetSource(require('../../../assets/images/lilian.jpg'))
 
 const screens = {
 	Home: {
@@ -67,12 +72,12 @@ export default class Home extends Component{
 		},
 		
 		{
-			Component:Player,
+			Component:H5Player,
 			props:{
-				poster:require('../../../assets/images/lilian.jpg'),
-				src:require('../../../assets/media/Jeff.mp4'),
+				poster,
+				src,
 				fullscreen:true,
-				autoplay:false,
+				autoplay:true,
 			}
 		}
 

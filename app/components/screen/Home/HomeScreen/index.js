@@ -9,8 +9,9 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import config from '../config.js';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
-import Player from '../../../public/Player/index.js'
+import {H5Player} from '../../../public/Player/index.js'
 
 
 export default class Home extends Component{
@@ -22,8 +23,10 @@ export default class Home extends Component{
  	}
  	
 	render(){
-		return  <Player 
-					src={require('../../../../assets/media/Jeff.mp4')} 
+		let src = resolveAssetSource(require('../../../../assets/media/Jeff.mp4'));
+		return null
+		return  <H5Player 
+					src={src.uri} 
 					poster={require('../../../../assets/images/lilian.jpg')}
 					autoplay={true}
 				/>

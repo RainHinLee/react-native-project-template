@@ -67,15 +67,15 @@ export default class Home extends Component{
 			props:{},
 		},
 		
-		{
-			Component:NativePlayer,
-			props:{
-				poster:require('../../../assets/images/lilian.jpg'),
-				src:require('../../../assets/media/Jeff.mp4'),
-				fullscreen:true,
-				autoplay:false,
-			}
-		}
+//		{
+//			Component:NativePlayer,
+//			props:{
+//				poster:require('../../../assets/images/lilian.jpg'),
+//				src:require('../../../assets/media/Jeff.mp4'),
+//				fullscreen:true,
+//				autoplay:false,
+//			}
+//		}
 
 	
 	];  //---子组件

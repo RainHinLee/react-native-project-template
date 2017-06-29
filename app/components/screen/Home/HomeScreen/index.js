@@ -23,6 +23,7 @@ export default class Home extends Component{
  	}
  	
 	render(){
+		return null
 		return  <NativePlayer 
 					src={require('../../../../assets/media/Jeff.mp4')} 
 					poster={require('../../../../assets/images/lilian.jpg')}

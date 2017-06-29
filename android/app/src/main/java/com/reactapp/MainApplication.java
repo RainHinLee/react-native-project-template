@@ -10,6 +10,7 @@ import com.facebook.soloader.SoLoader;
 import com.rnfs.RNFSPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.react.rnspinkit.RNSpinkitPackage; 
+import com.horcrux.svg.SvgPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new RNFSPackage(),
           new ReactVideoPackage(),
-          new RNSpinkitPackage() 
+          new RNSpinkitPackage(),
+          new SvgPackage()
       );
     }
   };

@@ -47,6 +47,7 @@ class Menu extends Component{
 			return false
 		}
 		this.props.navigation.navigate('Detail',{slug});
+		this.hideMenu();
 	}
 	
 	shouldComponentUpdate(nextProps,nextState){

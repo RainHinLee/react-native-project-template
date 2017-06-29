@@ -26,7 +26,7 @@ export default class Home extends Component{
 		return  <NativePlayer 
 					src={require('../../../../assets/media/Jeff.mp4')} 
 					poster={require('../../../../assets/images/lilian.jpg')}
-					autoplay={true}
+					autoplay={false}
 				/>
 	}
 }

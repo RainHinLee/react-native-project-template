@@ -29,6 +29,7 @@ class Menu extends Component{
 	
 	hideMenu(){  //--隐藏
 		this.props.dispatch({type:'menuHide'});
+		
 	}
 	
 	fetchCates(){ //--获取分类列表
@@ -64,7 +65,8 @@ class Menu extends Component{
 				})
 				BackHandler.addEventListener('hardwareBackPress',this.onBackHandler);
 			}else{ //---收起
-				this.refs.box.transitionTo({left:-1*width},100,'linear');	
+				this.refs.box.transitionTo({left:-1*width},100,'linear');
+				BackHandler.removeEventListener('hardwareBackPress',this.onBackHandler)
 			};
 		}
 		return false;
@@ -77,7 +79,7 @@ class Menu extends Component{
 	backHandler(){
 		if(this.props.menu.isOpend){
 			this.hideMenu();
-			BackHandler.removeEventListener('hardwareBackPress',this.onBackHandler)			
+			BackHandler.removeEventListener('hardwareBackPress',this.onBackHandler)
 			return true;
 		};
 		return false

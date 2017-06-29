@@ -5,6 +5,8 @@ import {createStore} from 'redux';
 import {StackNavigator} from 'react-navigation';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator'; //---切换效果
 import {connect} from 'react-redux';
+import {BackHandler,Alert} from 'react-native';
+
 //---引入各组件
 import reducers from './reducers/index.js';
 import styles from './styles/index.js';
@@ -40,6 +42,19 @@ const NavApp = StackNavigator(screens,{
 
 //--输出根组件
 export default class App extends Component{
+	constructor(props){
+		super(props)
+		BackHandler.addEventListener('hardwareBackPress',this.backHandler.bind(this))
+	}
+	
+	backHandler(){
+		Alert.alert(null,'是否退出app',[
+			{text:'NO'},
+			{text:'YES',onPress:()=>{BackHandler.exitApp()}},
+		]);
+		return true
+	}
+	
 	render(){
 		return <Provider store={reduxStore}>
 					<NavApp/>

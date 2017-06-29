@@ -11,6 +11,7 @@ import {
 	StatusBar,
 	Text,
 	BackHandler,
+	Slider,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconF from 'react-native-vector-icons/Foundation';
@@ -87,80 +88,55 @@ class Player extends Component{
   		});
   	}
   	
-	onSeekStartResponder() { //--触控响应者
-	    return true;
-	}
-	
-	onSeekMoveResponder() {  //--触控响应者
-	    return true;
-	}
-	
-	onSeekGrant(e) { //--滑动开始
-	    this.seekStartY = e.nativeEvent.pageY; //--滑动开始位置
-	    this.seekStartX = e.nativeEvent.pageX; //--滑动开始位置
-	    
-	    this.seekStartPercent = this.state.currentTime / this.duration ; //--滑动开始百分比;
-	    this.isPausedBeforeSeek = this.state.paused; //--滑动前是否暂定
-	    this.setState({ //--滑动时暂停视频播放
-	      paused: true,
-	    });
-	}
-	
-	onSeekRelease(){ //--滑动取消
-		this.setState({
-			paused:this.isPausedBeforeSeek
-		})
-	}
-	
-	onSeek(e) { //--滑动中
-	    let diffY = this.seekStartY-e.nativeEvent.pageY ; //---滑动的距离Y
-	    let diffX = e.nativeEvent.pageX-this.seekStartX; //---滑动的距离X
-	    
-	    let percent = this.props.fullscreen
-	    				? (this.seekStartPercent+(diffY / this.timelineWidth))
-	    				: (this.seekStartPercent+(diffX / this.timelineWidth))
-	    				
-	    if(percent<=0){
-	    	percent = 0;
-	    }
-	    
-	    if(percent>=1){
-	    	percent = 1
-	    }
-	    let time = this.duration * percent;
-	  
-	    this.setState({
-	      currentTime:time ,
-	    });
-	
-	    this.refs.player.seek(time);
-	}  
-	
-  	change(){
+  	seeking(value){  //--时间轴滑动中
+  		if(!this.seekStarting){
+  			this.seekStarting = true;
+  			this.seekingBeforePaused = this.state.paused;
+  		}
+  		
   		this.setState({
-  			paused: !this.state.paused
+  			paused:true,
   		})
   	}
- 
- 	changeVolume(){
+  	
+  	seeked(value){  //--时间轴滑动结束
+  		let time = this.duration * value
+  		this.seekStarting = false;
+  		
+   		this.setState({
+  			paused:this.seekingBeforePaused,
+  			currentTime: time ,
+  		});
+  		
+  		this.refs.player.seek(time);
+  		
+  	}
+  	
+ 	exitFullscreen(){  //---android回退键
+ 		this.toggleScreen();
+		BackHandler.removeEventListener('hardwareBackPress',this.exitFullscreenHandler)//--注销android回退键
+ 		return true;
+ 	}
+ 	
+ 	togglePause(){
+ 		this.setState({
+ 			paused: !this.state.paused
+ 		})
+ 	}
+ 	
+ 	toggleVolume(){
    		this.setState({
   			volume: !this.state.volume
   		})		
  	}
  	
- 	changeScreen(){  //--全屏和退出全屏
+ 	toggleScreen(){  //--全屏和退出全屏
  		let type = this.props.fullscreen ? 'exitFullscreen' : 'fullscreen'
  		
 		this.props.dispatch({
 			type,
 			...this.state
 		});		
- 	}
- 	
- 	exitFullscreen(){  //---android回退键
- 		this.changeScreen();
-		BackHandler.removeEventListener('hardwareBackPress',this.exitFullscreenHandler)//--注销android回退键
- 		return true;
  	}
  	
 	toggleControls(){ //--显示控制条
@@ -235,6 +211,7 @@ class Player extends Component{
 				}else{ //--普通屏组件	
 	 				this.refs.player && this.refs.player.seek(this.state.currentTime);
 				}
+				BackHandler.removeEventListener('hardwareBackPress',this.exitFullscreenHandler)//--注销android回退键
 			};
 			
 			this.changeFullscreen = false;
@@ -261,7 +238,7 @@ class Player extends Component{
 
 	renderLeftIcon(){  //--绘制开始暂停按钮
 		let name = this.state.paused ? 'play-arrow' : 'pause';
-		return	<TouchableNativeFeedback onPress={this.change.bind(this)}>
+		return	<TouchableNativeFeedback onPress={this.togglePause.bind(this)}>
 		  			<View style={[global.styles.center,{flex:1}]}>
 						<Icon name={name} color='#fff' size={30}/>
 					</View>
@@ -270,31 +247,23 @@ class Player extends Component{
 	}
 
 	renderTimeline(){
-		let {width,height} = this.getSizeStyles();
-		let w = width * 0.7;
 		let percent = this.state.currentTime / this.duration 
-		let aw = w * percent;
-		
-		this.timelineWidth = w;
-		
 		return <View style={[styles.propgressBar]}>
-					<View style={[styles.timeline,{width:w,height:6}]}></View>
-					<View style={[styles.activeTimeline,{width:aw,height:6}]}></View>
-					<View 
-			            onStartShouldSetResponder={this.onSeekStartResponder.bind(this)}
-			            onMoveShouldSetPanResponder={this.onSeekMoveResponder.bind(this)}
-			            onResponderGrant={this.onSeekGrant.bind(this)}
-			            onResponderMove={this.onSeek.bind(this)}
-			            onResponderRelease={this.onSeekRelease.bind(this)}
-			            onResponderTerminate={this.onSeekRelease.bind(this)}						
-						style={[styles.sliderBar,{left:aw-2}]}>
-					</View>
+					<Slider 
+						maximumTrackTintColor='#FE4A4B'
+						minimumTrackTintColor ='#fff'
+						thumbTintColor="#FE4A4B"
+						step ={0.01}
+						value={percent}
+						onValueChange ={this.seeking.bind(this)}
+						onSlidingComplete ={this.seeked.bind(this)}
+					/>				
 		      </View>
 	}
 	
 	renderVolumeIcon(){
 		let name = this.state.volume ? 'volume-up' : 'volume-off';
-		return	<TouchableNativeFeedback onPress={this.changeVolume.bind(this)}>
+		return	<TouchableNativeFeedback onPress={this.toggleVolume.bind(this)}>
 		  			<View style={styles.volume}>
 						<Icon name={name} color='#fff' size={24}/>
 					</View>
@@ -303,7 +272,7 @@ class Player extends Component{
 
 	renderFullscreenIcon(){
 		let name = this.props.fullscreen ? 'arrows-in' : 'arrows-out';
-		return	<TouchableNativeFeedback onPress={this.changeScreen.bind(this)}>
+		return	<TouchableNativeFeedback onPress={this.toggleScreen.bind(this)}>
 		  			<View style={[global.styles.center,{flex:1}]}>
 						<IconF name={name} color='#fff' size={20}/>
 					</View>

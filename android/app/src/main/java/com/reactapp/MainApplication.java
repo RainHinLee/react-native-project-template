@@ -3,6 +3,7 @@ package com.reactapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new SplashScreenReactPackage(),
           new RNFSPackage(),
           new ReactVideoPackage(),
           new RNSpinkitPackage(),

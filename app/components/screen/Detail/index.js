@@ -12,14 +12,9 @@ import Svg,{Circle} from 'react-native-svg';
 
 export default class Detail extends Component{
 	
-	
-	
-	
 	render(){
 		return  <Svg style={styles.svg}>
-					<TouchableNativeFeedback >
-							<Circle r={width/4} stroke='red' cx={width/2} cy={height/4} strokeWidth={2} fill='yellow'></Circle>
-					</TouchableNativeFeedback>
+					<Circle r={width/4} stroke='red' cx={width/2} cy={height/4} strokeWidth={2} fill='yellow'></Circle>
 				</Svg>
 	}
 }

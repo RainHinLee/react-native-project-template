@@ -5,7 +5,9 @@ include ':react-native-fs'
 include ':react-native-video'
 include ':react-native-spinkit'
 include ':react-native-svg'
+include ':react-native-splash-screen'
 
+project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-svg/android')
 project(':react-native-spinkit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-spinkit/android')
 project(':react-native-fs').projectDir = new File(settingsDir, '../node_modules/react-native-fs/android')

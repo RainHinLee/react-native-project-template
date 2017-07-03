@@ -55,8 +55,11 @@ export default Object.create({
 			})
 		}).catch(err => {
 			console.log(err.message)
-		})
-		
-		
+		})	
+	},
+	
+	stripePay(body){  //--支付
+		let url = 'http://www.hanbridgemandarin.com/app/stripePay';
+		return fetch2('POST',url,body);
 	}
 })

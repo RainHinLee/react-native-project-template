@@ -12,6 +12,7 @@ import com.rnfs.RNFSPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.react.rnspinkit.RNSpinkitPackage; 
 import com.horcrux.svg.SvgPackage;
+import com.gettipsi.stripe.StripeReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
           new RNFSPackage(),
           new ReactVideoPackage(),
           new RNSpinkitPackage(),
-          new SvgPackage()
+          new SvgPackage(),
+          new StripeReactPackage()
       );
     }
   };

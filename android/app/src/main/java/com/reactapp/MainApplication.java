@@ -3,6 +3,7 @@ package com.reactapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import br.com.vizir.rn.paypal.PayPalPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

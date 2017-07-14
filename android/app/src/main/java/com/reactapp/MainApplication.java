@@ -3,7 +3,6 @@ package com.reactapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import br.com.vizir.rn.paypal.PayPalPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -14,6 +13,7 @@ import com.brentvatne.react.ReactVideoPackage;
 import com.react.rnspinkit.RNSpinkitPackage; 
 import com.horcrux.svg.SvgPackage;
 import com.gettipsi.stripe.StripeReactPackage;
+import com.taessina.paypal.RNPaypalWrapperPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +35,8 @@ public class MainApplication extends Application implements ReactApplication {
           new ReactVideoPackage(),
           new RNSpinkitPackage(),
           new SvgPackage(),
-          new StripeReactPackage()
+          new StripeReactPackage(),
+          new RNPaypalWrapperPackage()
       );
     }
   };

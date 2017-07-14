@@ -74,10 +74,10 @@ export default class App extends Component{
 	}
 	
 	render(){
-		let component = this.state.fetched 
-						? (this.state.inited ? <NavApp/> : <Intro done={this.introDone.bind(this)}/>)
-						: <View/>;
-		
+//		let component = this.state.fetched 
+//						? (this.state.inited ? <NavApp/> : <Intro done={this.introDone.bind(this)}/>)
+//						: <View/>;
+		let component = <NavApp/>
 		return <Provider store={reduxStore}>
 					{component}
 				</Provider>

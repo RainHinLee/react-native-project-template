@@ -14,8 +14,8 @@ import config from '../config.js';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 import {H5Player,NativePlayer} from '../../../public/Player/index.js';
-
 import stripe from 'tipsi-stripe';
+import Paypal from 'react-native-paypal-wrapper';
 
 
 export default class Home extends Component{
@@ -30,9 +30,8 @@ export default class Home extends Component{
  		this.props.screenProps.stackNavigation.navigate('Detail',{slig:'text'});
  	}
  	
- 	payment(){
-
- 		stripe.init({
+ 	stripe(){  //--stripe支付
+  		stripe.init({
  			'publishableKey': "pk_live_4MCGVN0LXWX1AvvI1oVYVgnx", //'pk_test_hEPP6zyeKdXJw4BYhsjWLhe6', //
  		});
  		
@@ -58,17 +57,34 @@ export default class Home extends Component{
    			})
  		}).catch(err=>{
  			Alert.alert(`错误:${err.message}`)
- 		})
+ 		})		
+ 	}
+ 	
+ 	paypal(){ //--paypal支付 zhengbin83@163.com Meijia103 reactapp
+ 		console.log('开始支付react...');
+ 		Paypal.initialize(Paypal.PRODUCTION, "AXrBySJbr1JEKCcxtCvYWKomnpJY_mIsq5aOcLerX0X9tFDtipw6IUbKhI0y6fvvQ4LSqUQ4fr8Si7c4");
+
+		Paypal.pay({
+		  	price: '1.00',
+		  	currency: 'USD',
+		  	description: 'reactapp 支付',
+		}).then(result => {
+			console.dir(result);
+			var paymentId = result.response.id;
+			return global.store.paypalPay({paymentId})
+		}).then(result=>{
+			console.dir(result)
+		}).catch(error => {
+			console.dir(error)
+		});
  	}
  	
 	render(){
-		return <TouchableNativeFeedback onPress={this.payment.bind(this)}>
+
+		return <TouchableNativeFeedback onPress={this.paypal.bind(this)}>
 					<View style={[global.styles.center,{height:40}]}>
 						<Text>开始支付</Text>
 					</View>
-					
-					
-					
 				</TouchableNativeFeedback>
 
 	}

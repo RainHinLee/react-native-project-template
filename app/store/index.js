@@ -61,5 +61,16 @@ export default Object.create({
 	stripePay(body){  //--支付
 		let url = 'http://www.hanbridgemandarin.com/app/stripePay';
 		return fetch2('POST',url,body);
+	},
+	
+	paypalNonce(){  //--paypal获取nonce支付密令
+//		let url = 'http://www.hanbridgemandarin.com/app/paypalToken';
+		let url = 'http://192.168.1.110:8085/app/paypalToken';
+		return fetch2('get',url);
+	},
+	
+	paypalPay(data){
+		let url = 'http://192.168.1.110:8085/app/paypalPay';
+		return fetch2('post',url,data);		
 	}
 })

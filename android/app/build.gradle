@@ -154,7 +154,7 @@ dependencies {
     compile project(':react-native-svg')
     compile project(':react-native-splash-screen')
     compile project(':tipsi-stripe')
-    compile project(':react-native-paypal')
+    compile project(':react-native-paypal-wrapper')
     
 }
 

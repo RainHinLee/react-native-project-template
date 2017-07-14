@@ -1,5 +1,7 @@
 rootProject.name = 'reactapp'
 
+
+
 include ':app'
 include ':react-native-fs'
 include ':react-native-video'
@@ -7,9 +9,9 @@ include ':react-native-spinkit'
 include ':react-native-svg'
 include ':react-native-splash-screen'
 include ':tipsi-stripe'
-include ':react-native-paypal'
+include ':react-native-paypal-wrapper'
 
-project(':react-native-paypal').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-paypal/android')
+project(':react-native-paypal-wrapper').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-paypal-wrapper/android')
 project(':tipsi-stripe').projectDir = new File(rootProject.projectDir, '../node_modules/tipsi-stripe/android')
 project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
 project(':react-native-svg').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-svg/android')
